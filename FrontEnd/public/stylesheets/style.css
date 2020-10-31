@@ -1,0 +1,26 @@
+body { 
+    padding-top: 120px; 
+    /*background-color: #ffcfd4;*/
+    background-color: #f9d6db;
+}
+
+nav {
+    background-color:#362C36;
+}
+
+nav a{
+    color: #ffe8ec; 
+    text-align: left; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav a:hover{
+    color: #BD4C90;
+}
+
+.img-responsive {
+    height: auto;
+    width: auto;
+    max-height: 72px;
+    max-width: 250px;
+}
