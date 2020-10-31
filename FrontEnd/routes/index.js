@@ -2,28 +2,57 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://localhost:27017/WISE_ITESM');
 
-// function cloneToObjArr(doc){
-//     var copy = [];
-//     doc.forEach(e => { 
-//         if(Array.isArray(e)){
-//             copy.push(e);
-//         }else if (typeof e === "object"){
-//             copy.push(e.toObject());
-//         }
-//     });
-//     return copy;
-// }
+function cloneToObjArr(doc){
+    var copy = [];
+    doc.forEach(e => { 
+        if(Array.isArray(e)){
+            copy.push(e);
+        }else if (typeof e === "object"){
+            copy.push(e.toObject());
+        }
+    });
+    return copy;
+}
 
-// var Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
-// var cvDataSchema = new Schema({
-//     title: {type: String, required: true},
-//     content: [String]
-// },{collection: "cvFields"});
+var datosHomeSchema = new Schema({
+    infoGeneral: {
+        title: String,
+        top_content: [String],
+        slide_imgs: [String],
+        columns: [{
+            title: String,
+            content: String
+        }]
+    },
+    patrocinadores: [{
+        nombre: String,
+        descripción: [String],
+        img: String
+    }],
+    salonDeLaFama:[{
+        nombre: String,
+        descripción: [String],
+        img: String
+    }],
+    contacto: [{
+        tipo: String,
+        url: String,
+        icono: String
+    }]
+},{collection: "datosHome"});
 
-// var cvData = mongoose.model('cvFields', cvDataSchema);
+var datosPublicacionesSchema = new Schema({
+    title: String,
+    markdownContent: [String],
+    imgs: [String]
+},{collection: "datosPublicaciones"});
+
+var datosHome = mongoose.model('datosHome', datosHomeSchema);
+var datosPublicaciones = mongoose.model('datosPublicaciones', datosPublicacionesSchema);
 
 // router.get('/cv', (req, res, next) => {
 //     cvData.find() 
