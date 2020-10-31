@@ -1,11 +1,12 @@
 body { 
-    padding-top: 120px; 
+    padding-top: 98px; 
     /*background-color: #ffcfd4;*/
     background-color: #f9d6db;
 }
 
 nav {
-    background-color:#362C36;
+    background-color:#362c365e;
+    
 }
 
 nav a{
@@ -18,9 +19,29 @@ nav a:hover{
     color: #BD4C90;
 }
 
-.img-responsive {
+nav .img-responsive {
     height: auto;
     width: auto;
     max-height: 72px;
     max-width: 250px;
+}
+
+#carouselSlides {
+    position: relative;
+
+}
+
+.carousel img{
+    /*width: auto;*/
+    height: 700px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#mainLogo {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 22%;
 }
