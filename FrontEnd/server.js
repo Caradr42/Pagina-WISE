@@ -1,3 +1,4 @@
+
 const path = require('path');
 const routes = require('./routes/index')
 const PORT = process.env.PORT || 3000;
@@ -6,6 +7,7 @@ const express = require('express');
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 //const favicon = require('serve-favicon');
+
 
 const app = express();
 
