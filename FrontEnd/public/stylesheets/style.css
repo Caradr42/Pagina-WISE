@@ -1,0 +1,47 @@
+body { 
+    padding-top: 98px; 
+    /*background-color: #ffcfd4;*/
+    background-color: #f9d6db;
+}
+
+nav {
+    background-color:#362c365e;
+    
+}
+
+nav a{
+    color: #ffe8ec; 
+    text-align: left; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav a:hover{
+    color: #BD4C90;
+}
+
+nav .img-responsive {
+    height: auto;
+    width: auto;
+    max-height: 72px;
+    max-width: 250px;
+}
+
+#carouselSlides {
+    position: relative;
+
+}
+
+.carousel img{
+    /*width: auto;*/
+    height: 700px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#mainLogo {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 22%;
+}
