@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-const hbs = require('hbs')
+//const mongoose = require('mongoose');
+//const hbs = require('hbs')
 const port = process.env.PORT || 5000;
 const { mongoose } = require('../../BackEnd-API/database/database.connection');
-const Controllers = require('../../BackEnd-API/server/controllers')
+
+//======
+const DatosHomeCtrl = require("../../BackEnd-API/server/controllers/datosHomeCtrl");
+const SalonDeLaFamaCtrl = require("../../BackEnd-API/server/controllers/salon_de_la_famaCtrl");
+const PublicacionesCtrl = require("../../BackEnd-API/server/controllers/datosPublicacionesCtrl");
+const PatrocionadoresCtrl = require("../../BackEnd-API/server/controllers/patrocinadoresCtrl");
+//======
 
 function cloneToObjArr(doc) {
     var copy = [];
