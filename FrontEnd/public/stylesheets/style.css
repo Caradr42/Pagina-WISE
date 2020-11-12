@@ -5,21 +5,21 @@ body {
 }
 
 h1{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Montserrat';
     font-size: 40px;
     font-weight: bold;
     color: #863264;
 }
 
 h2{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Montserrat';
     font-size: 30px;
     font-weight: bold;
     color: #DD406D;
 }
 
 li{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    font-family: 'Montserrat'; 
 }
 
 .list-group-item {
@@ -41,6 +41,7 @@ li{
 
 .button{
 background-color: #DD406D;
+font-family: 'Montserrat';
   border: none;
   color: white;
   text-align: center;
@@ -53,15 +54,22 @@ background-color: #DD406D;
 
 }
 
+p{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
 
+p.subtitulos{
+    font-family: 'Montserrat'; 
+    font-style: italic;
+    color:  #863264;
+    font-size: 20px;
+}
 
 .icon{
     font-size:60px;
     color: #863264;
 }
-
-
-
 
 
 nav {
