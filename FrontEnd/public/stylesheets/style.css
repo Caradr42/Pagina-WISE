@@ -22,6 +22,23 @@ li{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 
+.list-group-item {
+    float: left;
+    border: 0 !important;
+    margin: 0px;
+    padding: 10px 50px;
+    background-color: #FDF4F5;
+
+}
+
+.img-winners {
+    width: 90%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    align-content: center;
+    text-align: center;
+  }
+
 .button{
 background-color: #DD406D;
   border: none;
@@ -35,6 +52,17 @@ background-color: #DD406D;
   padding: 16px 28px;
 
 }
+
+
+
+.icon{
+    font-size:60px;
+    color: #863264;
+}
+
+
+
+
 
 nav {
     background-color:#362c365e;
