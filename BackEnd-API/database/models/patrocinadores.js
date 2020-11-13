@@ -3,7 +3,6 @@ const Patrocinador = new mongoose.Schema({
     nombre: String,
     description: String,
     img: String
+});
 
-})
-
-module.exports = mongoose.model('Patrocinador', Patrocinador)
+module.exports = mongoose.model('patrocinador', Patrocinador, 'patrocinadores');

@@ -4,16 +4,76 @@ body {
     background-color: #f9d6db;
 }
 
+h1{
+    font-family: 'Montserrat';
+    font-size: 40px;
+    font-weight: bold;
+    color: #863264;
+}
+
 h2{
-    font-family: monospace;
+    font-family: 'Montserrat';
     font-size: 30px;
     font-weight: bold;
     color: #DD406D;
 }
 
+li{
+    font-family: 'Montserrat'; 
+}
+
+.list-group-item {
+    float: left;
+    border: 0 !important;
+    margin: 0px;
+    padding: 10px 50px;
+    background-color: #FDF4F5;
+
+}
+
+.img-winners {
+    width: 90%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    align-content: center;
+    text-align: center;
+  }
+
+.button{
+background-color: #DD406D;
+font-family: 'Montserrat';
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: navajowhite;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 16px 28px;
+
+}
+
+p{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
+
+p.subtitulos{
+    font-family: 'Montserrat'; 
+    font-style: italic;
+    color:  #863264;
+    font-size: 20px;
+}
+
+.icon{
+    font-size:60px;
+    color: #863264;
+}
+
 
 nav {
-    background-color:#362c365e;
+    background-color:#362c36f6;
     
 }
 
@@ -36,7 +96,9 @@ nav .img-responsive {
 
 #carouselSlides {
     position: relative;
-
+    
+    margin: 0;
+    padding: 0;
 }
 
 .carousel img{

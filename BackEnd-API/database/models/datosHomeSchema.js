@@ -14,6 +14,6 @@ const datosHomeSchema = new mongoose.Schema({
         url: String,
         icono: String
     }]
-}, { collection: "datosHome" });
+});
 
-module.exports = mongoose.model('datosHomeSchema', datosHomeSchema)
+module.exports = mongoose.model('home', datosHomeSchema, 'datosHome');
