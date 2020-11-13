@@ -35,7 +35,7 @@ function cloneToObjArr(doc) {
 // });
 
 router.get('/failed', (req, res) => {
-    res.send("you failed to log in");
+    res.send("No eres un administrador; tu solicitud sera revisada");
 });
 
 router.get('/admin/super-secret-page', isLoggedIn, (req, res) => {   

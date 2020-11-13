@@ -13,15 +13,13 @@ const isLoggedIn = async (req, res, next) => {
                     next();
                 }else{
                     console.log("User " + req.user.email + " is not admin");
-                    res.sendStatus(401);
+                    res.redirect('/failed');
                 }
                 return adm;
             });
     }else{
-        res.sendStatus(401);
+        res.redirect('/failed');
     }
-
-    //next();
 };
 
 module.exports = isLoggedIn;
