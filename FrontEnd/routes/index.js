@@ -11,6 +11,7 @@ const SalonDeLaFamaCtrl = require("../../BackEnd-API/server/controllers/salon_de
 const PublicacionesCtrl = require("../../BackEnd-API/server/controllers/datosPublicacionesCtrl");
 const PatrocionadoresCtrl = require("../../BackEnd-API/server/controllers/patrocinadoresCtrl");
 const UsersCtrl = require("../../BackEnd-API/server/controllers/usersCtrl");
+const AdminsCtrl = require("../../BackEnd-API/server/controllers/adminsCtrl");
 //======
 
 function cloneToObjArr(doc) {

@@ -7,7 +7,7 @@ passport.serializeUser(function(user, done) {
 });
   
 passport.deserializeUser(function(OID, done) {
-    console.log('De-serializing: ' + OID);
+    //console.log('De-serializing: ' + OID);
 
     UsersCtrl.findByOID(OID).then(user => {
         done(null, user);

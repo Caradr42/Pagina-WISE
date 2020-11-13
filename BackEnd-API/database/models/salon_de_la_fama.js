@@ -3,7 +3,6 @@ const SalonDeLaFama = new mongoose.Schema({
     nombre: String,
     descripción: String,
     img: String
-
 })
 
-module.exports = mongoose.model('SalonDeLaFama', SalonDeLaFama)
+module.exports = mongoose.model('salonDeLaFama', SalonDeLaFama, 'salonDeLaFama');

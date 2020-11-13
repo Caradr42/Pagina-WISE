@@ -1,4 +1,5 @@
 const Publicacion = require('../../database/models/datosPublicacionesSchema')
+
 let PublicacionesCtrl = {}
 
 PublicacionesCtrl.insert_publication = async(title, content, imgs) => {
