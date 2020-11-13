@@ -2,11 +2,10 @@ const express = require('express');
 // const router = express.Router();
 const router = require('express-promise-router')();
 
-//onst port = process.env.PORT || 5000;
 const { mongoose } = require('../../BackEnd-API/database/database.connection');
 const isLoggedIn = require('../../BackEnd-API/server/userVerification');
 
-//======CONTROLLERS
+//====== CONTROLLERS ======
 const DatosHomeCtrl = require("../../BackEnd-API/server/controllers/datosHomeCtrl");
 const SalonDeLaFamaCtrl = require("../../BackEnd-API/server/controllers/salon_de_la_famaCtrl");
 const PublicacionesCtrl = require("../../BackEnd-API/server/controllers/datosPublicacionesCtrl");
@@ -34,25 +33,21 @@ function cloneToObjArr(doc) {
 //         });
 // });
 
-//authentification routes
-
-// router.route('/signin')
-//     .post(UsersCtrl.signInOrCreateNew); 
-
 router.get('/failed', (req, res) => {
     res.send("you failed to log in");
 });
 
-router.get('/good', isLoggedIn, (req, res) => {   
-    res.send(`welcome: ${req.user.name}`);
+router.get('/admin/super-secret-page', isLoggedIn, (req, res) => {   
+    let obj = null;
+    if (req.user) obj = req.user.toObject();
+    res.render('pagina-secreta', {user: obj, layout: false});
 });
 
 router.get('/logout', (req, res) => {
     req.session = null;
     req.logout();
-    res.redirect('/');
+    res.redirect('/admin');
 });
-
 
 //routes
 router.get('/', (req, res, next) => {
@@ -61,7 +56,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/admin', (req, res, next) => {
-    res.render('admin');
+    let obj = null;
+    if (req.user) obj = req.user.toObject();
+    if (req.user) res.redirect('/admin/super-secret-page');
+    res.render('admin', {user: obj});
 });
 
 router.get('/eventos', (req, res, next) => {

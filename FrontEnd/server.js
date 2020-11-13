@@ -27,10 +27,11 @@ app.set('view engine', 'hbs');
 // });
 
 /// ===== Middlewares =====
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev')); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(cookieSession({
     name: 'admin-session',
     keys: ['key1', 'key2'] 
@@ -45,8 +46,8 @@ app.get('/google',  passport.authenticate('google', { scope: ['profile', 'email'
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }
     ),
     function(req, res) {
-        // Successful authentication, redirect to good.
-        res.redirect('/good');
+        // Successful authentication, redirect to super-secret-page.
+        res.redirect('/admin/super-secret-page');
     }
 );
 
