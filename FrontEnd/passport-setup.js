@@ -22,9 +22,10 @@ passport.use(new GoogleStrategy({
     function(accessToken, refreshToken, profile, done) {
 
         console.log(profile.emails[0].value + " tried to log in.");
+        console.log(profile);
 
         //use the profile info (profile ID) to check if user is already registered in DB else create one
-        const usr = UsersCtrl.findOrCreate(profile.displayName, profile.id, profile.emails[0].value).then(
+        const usr = UsersCtrl.findOrCreate(profile.displayName, profile.id, profile.emails[0].value, profile.photos[0].value).then(
             usr => {
                 if(usr){
                     console.log("user retrieved: " + usr.name + " : " + usr.OID);

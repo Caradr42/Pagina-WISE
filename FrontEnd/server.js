@@ -17,20 +17,25 @@ app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: layout
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-//===== handlebars function example =====
-// var hbsC = hbs.create({});
-// hbsC.handlebars.registerHelper('setColor', function (index) {
-//     if (parseInt(index) % 2 === 0){
-//         return '#eee';
-//     }
-//     return '#aaa';
-// });
+//===== handlebars helper functions =====
+var hbsC = hbs.create({});
+hbsC.handlebars.registerHelper('areNotEqual', function (a, b) {
+    if (a === b) return false;
+    return true;
+});
 
 /// ===== Middlewares =====
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev')); 
-app.use(bodyParser.json());
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use(cookieSession({
     name: 'admin-session',

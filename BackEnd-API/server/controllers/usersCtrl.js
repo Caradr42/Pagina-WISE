@@ -1,13 +1,19 @@
-const User = require('../../database/models/user')
+const User = require('../../database/models/user');
 
-let UsersController = {}
+let UsersController = {};
 
-UsersController.createUser = async(name, OID, email) => {
-    const newUser = new User({ name, OID, email });
+UsersController.createUser = async(name, OID, email, img) => {
+    const newUser = new User({ name, OID, email, img});
 
     await newUser.save((err, datos) => {
         if (err) return console.error(err);
         console.log(datos.name + " : " + datos.email  + "saved to collection.");
+    });
+}
+
+UsersController.updateUser = async(restrictions, data) => {
+    await User.updateOne(restrictions, data, (err) => {
+        if (err) return console.error(err); 
     });
 }
 
@@ -18,24 +24,25 @@ UsersController.deleteUserByOID = async(OID) => {
     });    
 }
 
-UsersController.getAll = async() => {
-    const res = await User.find({}, (err) => {
+UsersController.findAll = async() => {
+    const usr = await User.find({}, (err, usrs) => {
         if (err) console.log(err);
-    })
 
-    return res;
+        //console.log(usrs);
+        return usrs;
+    });
+    return usr;
 }
 
 UsersController.findByOID = async(OID) => {
     const usr = await User.findOne({'OID': OID}, async(err, usr) => {
         if (err) console.log(err);
-
         return usr;
     });
     return usr;
 }
 
-UsersController.findOrCreate = async(name, OID, email) => {
+UsersController.findOrCreate = async(name, OID, email, img) => {
     //console.log('finding user ======================');
 
     const user = await User.findOne({'OID': OID}, async(err, usr) => {
@@ -48,7 +55,7 @@ UsersController.findOrCreate = async(name, OID, email) => {
         }else { //create new user in DB
             //console.log('creating user ====================');
             
-            const newUser = new User({'name':name, 'OID': OID, 'email': email});
+            const newUser = new User({'name':name, 'OID': OID, 'email': email, 'img': img});
 
             return await newUser.save((err, datos) => {
                 if (err) {

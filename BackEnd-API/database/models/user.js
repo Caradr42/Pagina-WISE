@@ -12,7 +12,13 @@ const user = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true
-    }
+    },
+    img: String,
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
 });
 
 module.exports = mongoose.model('user', user, 'users');
