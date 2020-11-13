@@ -1,7 +1,7 @@
-<head>
+{{!-- <head>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="277915498003-ed49jf068rr8o17n8eoiiqo1k9lh72nm.apps.googleusercontent.com">
-</head>
+</head> --}}
 
 <div id="app" class="container"> 
     <h1 class="display-2" style="color:#111">Admin</h1> 
@@ -11,8 +11,8 @@
     <a href="#" onclick="signOut();">Sign out</a>
 </div>
 
-<script>
-    function onSignIn(googleUser) {
+{{!-- <script>
+    /*function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
@@ -26,7 +26,7 @@
         //Google auth send to backend
         var xhr = new XMLHttpRequest();
         
-        xhr.open('POST', 'https://localhost:3000/tokensignin');
+        xhr.open('POST', 'http://localhost:3000/signin');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             console.log('Signed in as: ' + xhr.responseText);
@@ -39,5 +39,5 @@
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });
-    }
-</script>
+    }*/
+</script> --}}
