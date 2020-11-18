@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const Patrocinador = new mongoose.Schema({
     nombre: String,
     description: String,

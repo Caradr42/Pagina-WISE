@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const md = require('./markdown_setup');
 
 require('./passport-setup');
 const app = express();
@@ -22,6 +23,13 @@ var hbsC = hbs.create({});
 hbsC.handlebars.registerHelper('areNotEqual', function (a, b) {
     if (a === b) return false;
     return true;
+});
+hbsC.handlebars.registerHelper('isActiveSlide', function (index) {
+    if (index === 0) return 'active';
+    return '';
+});
+hbsC.handlebars.registerHelper('markdownize', function (content) {
+    return md.render(content);
 });
 
 /// ===== Middlewares =====
