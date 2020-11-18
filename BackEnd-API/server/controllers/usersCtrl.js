@@ -28,7 +28,6 @@ UsersController.findAll = async() => {
     const usr = await User.find({}, (err, usrs) => {
         if (err) console.log(err);
 
-        //console.log(usrs);
         return usrs;
     });
     return usr;

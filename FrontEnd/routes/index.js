@@ -1,6 +1,7 @@
 const express = require('express');
 // const router = express.Router();
 const router = require('express-promise-router')();
+const passport = require('passport');
 
 const { mongoose } = require('../../BackEnd-API/database/database.connection');
 const isLoggedIn = require('../../BackEnd-API/server/userVerification');
@@ -24,9 +25,11 @@ function cloneToObjArr(doc) {
             copy.push(doc[i].toObject());
         }
     }
-
     return copy;
 }
+
+///===== OAuth passport request authentication ======
+
 
 ///===== amdin updates
 
@@ -36,6 +39,27 @@ router.post('/admin/updateAdminStatus', isLoggedIn, (req, res) => {
         console.log('admin to update with : ' + req.body.status + " : " + req.body.OID); 
         return res.send({msg: 'admin updated', OID: req.body.OID, status: req.body.status});
     });
+});
+
+router.post('/admin/updateHome/columns', isLoggedIn, (req, res) => {
+    //console.log('received columns : ' + JSON.stringify(req.body));
+
+    cols = [];
+    size = Math.max(req.body.title.length, req.body.title.content);
+    for (i = 0; i < size; ++i){
+        cols.push(
+            {
+                title: req.body.title[i],
+                content: req.body.content[i]
+            }
+        );
+    }
+    
+    //DatosHomeCtrl.update({title: req.body.mainTitle, columns: cols});
+
+    //return res.send(JSON.stringify(req.body));
+    return res.send(`${req.body.mainTitle} :: ${req.body.title} :: ${req.body.content}`);
+    //res.redirect('/admin/super-secret-page');
 });
 
 ///===== amdin routes
@@ -54,12 +78,18 @@ router.get('/admin/super-secret-page', isLoggedIn, (req, res) => {
     let obj = null;
     if (req.user) obj = req.user.toObject();
 
-    const allUsers = UsersCtrl.findAll().then(usrs => {
-        //console.log("All users: " + usrs);
-        
+    UsersCtrl.findAll().then(usrs => {
         const objs = cloneToObjArr(usrs);
 
-        res.render('pagina-secreta', {user: obj, users: objs, layout: false});
+        DatosHomeCtrl.get().then(home => {
+            res.render('pagina-secreta', 
+            {
+                user: obj, 
+                users: objs, 
+                homeData: home[0].toObject(), 
+                layout: false
+            });
+        });
     });
 });
 
@@ -73,8 +103,10 @@ router.get('/admin', (req, res, next) => {
 
 //routes
 router.get('/', (req, res, next) => {
-    res.render('home');
-
+    
+    DatosHomeCtrl.get().then(doc => {
+        res.render('home', {homeData: doc[0].toObject()});
+    });
 });
 
 router.get('/eventos', (req, res, next) => {

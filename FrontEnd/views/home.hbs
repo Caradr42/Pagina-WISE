@@ -1,27 +1,22 @@
-<div id="app" class="container-fluid">
+<link rel="stylesheet" href="/stylesheets/home-style.css">
 
-    <!-- Carrousel Section -->
-    <div class="row">     
+<div id="app" class="container-fluid">
+    
+    <div class="row"> 
+
         <div id="carouselSlides" class="carousel slide col-md-12" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="ConferenciaInvestigación1.jpg" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="ConferenciaChips1.jpg" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="CallejeroTEC-crop.png" alt="Third slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="TallerBiodisel.jpg" alt="Fourth slide">
-                </div>
+                {{#each homeData.slide_imgs}}
+                    <div class="carousel-item {{isActiveSlide @index}}">
+                        <img class="d-block w-100" src="{{this}}" alt="First slide">
+                    </div>
+                {{/each}}
             </div>
         </div>
 
 
         <div id="mainLogo" class="col-md-12 text-center" style="margin-top: 50pt;">
-            <img src="WiSE_Logotipo.png" class="img-responsive center-block"
+            <img src="WiSE_Calca.png" class="img-responsive center-block"
                 style="height: auto; width: auto; max-height: 350px; max-width: 500px;">
         </div>
     </div>
@@ -32,11 +27,19 @@
     <div class="row" style="margin-top: 50pt;  background-color:rgba(255, 255, 255, 0.726)">
         <div class="col-sm-12"  style="margin: 20pt 0pt">
             <center>
-                <h1>QUIÉNES SOMOS</h>
+                <h1>{{homeData.title}}</h>
             </center>
         </div>
-
-        <div class="col-sm-4 list-group-item ">
+        {{#each homeData.columns}}
+            <div class="col-sm-4 list-group-item ">
+                <center>
+                    <h2>{{title}}</h2>
+                </center>
+                
+                <div class="content"> {{{markdownize content}}} </div>
+            </div>
+        {{/each}}
+        {{!-- <div class="col-sm-4 list-group-item ">
             <center>
                 <h2>Misión</h2>
             </center>
@@ -46,7 +49,6 @@
                 <br>
                 <li>Incentivar a las alumnas de preparatoria el interés por estudiar alguna profesión de índole
                     ingenieril y así lograr que ingrese un mayor número de alumnas en las carreras de ingeniería </li>
-
         </div>
         <div class="col-sm-4 list-group-item">
             <center>
@@ -68,7 +70,7 @@
             <br>
             <li>Reconocer a todas las estudiantes de la EITI (Escuela de Ingeniería y Tecnologías de Información) y la
                 EBA (Escuela de Biotecnología y Alimentos)</li>
-        </div>
+        </div> --}}
 
     </div>
     <!-- End of Section -->
