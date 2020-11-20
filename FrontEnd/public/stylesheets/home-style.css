@@ -8,11 +8,20 @@
 
 .img-winners {
     width: 90%;
+    max-width: 600px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-bottom: 25px;
     align-content: center;
     text-align: center;
-  }
+}
+
+.img-patrocinador {
+    /*width: 90%;*/
+    width: 100px;
+    margin-bottom: 25px;
+    align-content: center;
+    text-align: center;
+}
 
 .button{
     background-color: #DD406D;

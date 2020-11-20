@@ -7,6 +7,7 @@ body {
     padding-top: 86px; 
     background-color: #f9d6db;
     margin-bottom: 180px;
+    font-family: 'Montserrat'
 }
 
 footer {
@@ -20,6 +21,7 @@ footer {
 
 li{
     font-family: 'Montserrat'; 
+    font-size: 20px;
 }
 
 h1{
@@ -50,7 +52,7 @@ p.subtitulos{
     font-family: 'Montserrat'; 
     font-style: italic;
     color:  #863264;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .icon{

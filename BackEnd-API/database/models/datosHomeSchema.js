@@ -6,12 +6,16 @@ const datosHomeSchema = new mongoose.Schema({
         title: String,
         content: String
     }],
-    contactos: [{
-        tipo: String,
-        url: String,
-        icono: String,
+    patrocinadores: [{
+        nombre: String,
+        img: String
     }],
-    copyright: String
+    patrocinadores_descripcion: String,
+    salon_de_la_fama: [{
+        nombre: String,
+        descripcion: String,
+        img: String
+    }]
 });
 
 module.exports = mongoose.model('home', datosHomeSchema, 'datosHome');
