@@ -19,6 +19,11 @@ footer {
     height: 180px;
 }
 
+p{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
+
 li{
     font-family: 'Montserrat'; 
     font-size: 20px;
@@ -36,11 +41,6 @@ h2{
     font-size: 30px;
     font-weight: bold;
     color: #DD406D;
-}
-
-p{
-    font-family: 'Montserrat'; 
-    font-size: 20px;
 }
 
 .content{

@@ -1,5 +1,8 @@
-const express = require('express');
-// const router = express.Router();
+const upload = require('../multer-setup');
+const slash = require('slash');
+const path = require('path');
+
+const express = require('express'); 
 const router = require('express-promise-router')();
 const passport = require('passport');
 
@@ -27,6 +30,11 @@ function cloneToObjArr(doc) {
     }
     return copy;
 }
+/// default image
+router.get("/default.png", (req, res) => {
+    //console.log(path.join(__dirname, "../public/Matraz.png"));
+    res.sendFile(path.join(__dirname, "../public/Matraz.png"));
+});
 
 
 ///===== amdin updates
@@ -38,6 +46,27 @@ router.post('/admin/updateAdminStatus', isLoggedIn, (req, res) => {
         res.send({do: "reload"});
         //return res.send({msg: 'admin updated', OID: req.body.OID, status: req.body.status});
     });
+});
+
+router.post('/admin/updateHome/upload-slide', isLoggedIn, upload('file','/uploads/slides'), 
+    (req, res) => {
+        let storedPath = req.file.path;
+        let relativePath = slash(storedPath).replace('public/', '');
+        
+        console.log(relativePath);
+
+        DatosHomeCtrl.insert_slide_img(relativePath).then((err) => {
+            //res.send('uploaded owo');
+            res.redirect('/admin/super-secret-page#home');
+        });
+    });
+
+router.post('/admin/updateHome/remove-slide', isLoggedIn, (req, res) => {
+    console.log(`Removing slide: ${req.body.path}`);  
+
+    DatosHomeCtrl.delete_slide_img(req.body.path);
+
+    res.send({do: "reload"});
 });
 
 router.post('/admin/updateHome/columns', isLoggedIn, (req, res) => {
@@ -58,7 +87,7 @@ router.post('/admin/updateHome/columns', isLoggedIn, (req, res) => {
 
     //return res.send(JSON.stringify(req.body));
     //res.send({do: "reload"});
-    res.redirect('/admin/super-secret-page#home');
+    res.redirect('/admin/super-secret-page#columnas');
 });
 
 router.post('/admin/updateHome/create-col', isLoggedIn, (req, res) => {
@@ -73,9 +102,56 @@ router.post('/admin/updateHome/remove-col', isLoggedIn, (req, res) => {
 
     //DatosHomeCtrl.remove_column(req.body);
     res.send({do: "reload"});
- });
+});
+
+router.post('/admin/updateHome/create-sponsor', isLoggedIn, upload('file','/uploads/sponsors'), (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    let relativePath = 'default.png';
+    if(req.file){
+        let storedPath = req.file.path;
+        relativePath = slash(storedPath).replace('public/', '');
+    }
+
+    console.log(relativePath);
+
+    const patrocinador = {nombre: req.body.nombre, img: relativePath};
+    DatosHomeCtrl.insert_patrocinador(patrocinador);
+
+    res.redirect('/admin/super-secret-page#patrocinadores');
+});
+ 
+router.post('/admin/updateHome/remove-sponsor', isLoggedIn, (req, res) => {
+    console.log(JSON.stringify(req.body));  
+    DatosHomeCtrl.remove_patrocinador_by_index(req.body.index, req.body.img);
+ 
+    res.send({do: "reload"});
+});
 
 
+router.post('/admin/updateHome/create-person', isLoggedIn, upload('file','/uploads/salon_de_la_fama'), (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    let relativePath = 'default.png';
+    if(req.file){
+        let storedPath = req.file.path;
+        relativePath = slash(storedPath).replace('public/', '');
+    }
+
+    console.log(relativePath);
+
+    const persona = {nombre: req.body.nombre, descripcion: req.body.descripcion, img: relativePath};
+    console.log(persona);
+    DatosHomeCtrl.insert_to_salon(persona);
+
+    res.redirect('/admin/super-secret-page#salon_de_la_fama');
+});
+ 
+router.post('/admin/updateHome/remove-person', isLoggedIn, (req, res) => {
+    console.log(JSON.stringify(req.body));  
+    
+    DatosHomeCtrl.remove_from_salon_by_index(req.body.index, req.body.img);
+ 
+    res.send({do: "reload"});
+});
 
  
 ///===== amdin routes
