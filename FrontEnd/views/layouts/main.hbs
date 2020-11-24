@@ -9,7 +9,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>WISE ITESM</title>
-
+    <link rel="icon" href="favicon.ico?v=1.1">
+    
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
     <!-- Bootstrap -->
@@ -31,6 +32,7 @@
     <!-- VueJs -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+    <script src="/src/events.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
@@ -47,18 +49,25 @@
                 <li class="nav-item active">
                     <a class="navbar-brand" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/#sponsor">Patrocinanos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/#salon">Salon de la Fama</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="navbar-brand" href="/publicaciones">Publicaciones</a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="/eventos">Eventos</a>
-                </li>
-                <li class="nav-item">
+
+                {{!-- <li class="nav-item">
                     <a class="navbar-brand" href="/oportunidades">Oportunidades</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="/recomendaciones">Recomendaciones</a>
-                </li>
+                </li> --}}
+        
                 <li class="nav-item">
                     <a class="navbar-brand" href="/admin">Admin</a>
                 </li>

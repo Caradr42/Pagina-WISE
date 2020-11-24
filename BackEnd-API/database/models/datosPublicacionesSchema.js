@@ -5,9 +5,14 @@ const datosPublicacionesSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    markdownContent: String,
     imgs: [String],
-    date: String
+    markdownContent: String,
+    link: String,
+    linkText: String,
+    date: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('publicaciones', datosPublicacionesSchema, 'datosPublicaciones');

@@ -7,6 +7,7 @@ body {
     padding-top: 86px; 
     background-color: #f9d6db;
     margin-bottom: 180px;
+    font-family: 'Montserrat'
 }
 
 footer {
@@ -18,8 +19,14 @@ footer {
     height: 180px;
 }
 
+p{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
+
 li{
     font-family: 'Montserrat'; 
+    font-size: 20px;
 }
 
 h1{
@@ -36,11 +43,6 @@ h2{
     color: #DD406D;
 }
 
-p{
-    font-family: 'Montserrat'; 
-    font-size: 20px;
-}
-
 .content{
     font-family: 'Montserrat'; 
     font-size: 16px;
@@ -50,11 +52,16 @@ p.subtitulos{
     font-family: 'Montserrat'; 
     font-style: italic;
     color:  #863264;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .icon{
     font-size:60px;
+    color: #863264;
+}
+
+.date {
+    font-size: 20px;
     color: #863264;
 }
 
@@ -95,5 +102,14 @@ nav .navbar-toggler {
         padding-left:25px;
         padding-right:25px;
     }
+}
+
+.card {
+    width: 100%;
+}
+
+.post-img{
+    margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

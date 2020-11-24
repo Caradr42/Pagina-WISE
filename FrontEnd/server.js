@@ -1,7 +1,11 @@
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const PORT = process.env.PORT || 3000;
 
 const express = require('express');
+const favicon = require('serve-favicon')
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -31,10 +35,15 @@ hbsC.handlebars.registerHelper('isActiveSlide', function (index) {
 hbsC.handlebars.registerHelper('markdownize', function (content) {
     return md.render(content);
 });
+hbsC.handlebars.registerHelper('date', function (date) {
+    let obj = new Date(date * 1);
+    return obj.toDateString() + ' ' + obj.getHours() + ':' + obj.getMinutes();
+});
 
 /// ===== Middlewares =====
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev')); 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");

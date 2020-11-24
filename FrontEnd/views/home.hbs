@@ -24,70 +24,47 @@
 
     <!-- Quienes Somos Section -->
 
-    <div class="row" style="margin-top: 50pt;  background-color:rgba(255, 255, 255, 0.726)">
+    <div id="about" class="row" style="margin-top: 50pt;  background-color:rgba(255, 255, 255, 0.726)">
         <div class="col-sm-12"  style="margin: 20pt 0pt">
             <center>
-                <h1>{{homeData.title}}</h>
+                <h1>{{homeData.title}}</h1>
             </center>
         </div>
         {{#each homeData.columns}}
             <div class="col-sm-4 list-group-item ">
                 <center>
-                    <h2>{{title}}</h2>
+                    <h2>{{{markdownize title}}}</h2>
                 </center>
                 
                 <div class="content"> {{{markdownize content}}} </div>
             </div>
         {{/each}}
-        {{!-- <div class="col-sm-4 list-group-item ">
-            <center>
-                <h2>Misión</h2>
-            </center>
-            
-                <li>Crear actividades innovadoras para las alumnas del campus, donde puedan conocer más temas alusivos a
-                    su carrera y asimismo convivir con alumnas de diferentes generaciones. </li>
-                <br>
-                <li>Incentivar a las alumnas de preparatoria el interés por estudiar alguna profesión de índole
-                    ingenieril y así lograr que ingrese un mayor número de alumnas en las carreras de ingeniería </li>
-        </div>
-        <div class="col-sm-4 list-group-item">
-            <center>
-                <h2>Visión</h2>
-            </center>
-            <li>Llegar a ser el eje principal de vinculación con las alumnas de secundaria y preparatoria a las carreras
-                de ingeniería. </li>
-            <br>
-            <li>Lograr ser la fuente principal de confianza para las alumnas del campus y así lleguen a integrarse al
-                grupo WiSE. </li>
-        </div>
-        <div class="col-sm-4 list-group-item"  >
-            <center>
-                <h2>Objetivos</h2>
-            </center>
-
-            <li>Demostrar que tanto mujeres como hombres tienen las mismas capacidades para ejercer una profesión
-                ingenieril.</li>
-            <br>
-            <li>Reconocer a todas las estudiantes de la EITI (Escuela de Ingeniería y Tecnologías de Información) y la
-                EBA (Escuela de Biotecnología y Alimentos)</li>
-        </div> --}}
-
     </div>
     <!-- End of Section -->
 
     <!-- Patrocinadores Section -->
 
-    <div class="row" style="margin-top: 50pt;text-align: center;">
+    <div id="sponsor" class="row" style="margin-top: 50pt;text-align: center;">
         <div class="col-sm-12">
             <h1>PATROCINADORES</h1>
             <br>
+            <div class="row">
+                {{#each homeData.patrocinadores}}
+                    <div class="col">
+                        <img src="{{this.img}}" class="img-patrocinador " alt="{{this.nombre}}">
+                        <center>
+                            <h2>{{this.nombre}}</h2>
+                        </center> 
+                    </div>
+                {{/each}}
+            </div>
             <br>
             <p>
-                ¿Te gustaría ser nuestro patrocinador? ¡Envíanos correo a hola@quierodinero.com
+                {{{markdownize homeData.patrocinadores_descripcion}}}
             </p>
 
             <button class="button">
-                Patrocinador
+                Haste Patrocinador
             </button>
         </div>
     </div>
@@ -95,33 +72,22 @@
 
     <!-- Salon de la Fama Section -->
 
-     <div class="row" style="margin-top: 50pt; margin-bottom: 50pt; background-color:rgba(255, 255, 255, 0.726); text-align:center">
+     <div id="salon" class="row" style="margin-top: 50pt; margin-bottom: 50pt; background-color:rgba(255, 255, 255, 0.726); text-align:center">
         <div class="col-sm-12" style="text-align: center;">
             <br>
             <h1>SALÓN DE LA FAMA</h1>
 
         </div>
 
-        <div class="col-sm-4" style=" border: 2px; border-radius: 5px;">
-            <br>
-            <img src="TallerBiodisel.jpg" class="img-winners" alt="salonFama1">
-            <p class="subtitulos">Nombre de la persona </p>
-            <p>Mucho texto</p>
+        {{#each homeData.salon_de_la_fama}}
+            <div class="col" style=" border: 2px; border-radius: 5px;">
+                <br>
+                <img src="{{this.img}}" class="img-winners" alt="{{this.nombre}}">
+                <p class="subtitulos">{{this.nombre}}</p>
+                <p>{{{markdownize this.descripcion}}}</p>
 
-        </div>
-        <div class="col-sm-4" >
-             <br>
-            <img src="TallerBiodisel.jpg" class="img-winners" alt="salonFama2">
-            <p class="subtitulos">Nombre de la persona </p>
-            <p>Mucho texto</p>
-        </div>
-        <div class="col-sm-4" style=" border: 2px; border-radius: 5px;">
-            <br>
-            <img src="TallerBiodisel.jpg" class="img-winners" alt="salonFama3">
-            <p class="subtitulos">Nombre de la persona </p>
-            <p>Mucho texto</p>
-        </div>
-
+            </div>
+        {{/each}}
     </div>
 
 </div>
