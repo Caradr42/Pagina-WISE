@@ -1,54 +1,16 @@
-<div class="card">
+{{#each publicacionesData.publicaciones}}
+<div class="card" style="margin: 1%; padding: 2px;">
         <div class="row no-gutters">
             <div class="col-auto">
-                <img alt="Circuits" src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"  style="width: 500px; height: auto;">
+                <img alt="Imágen" id="myImage"src={{{imgs}}}  style="width: 500px; height: auto;" onerror="this.style.display='none'"/>
             </div>
             <div class="col">
                 <div class="card-block px-2">
-                    <h2>Publicación con imágen</h2>
-                    <p>Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna.</p>
+                    <h2>{{{title}}} {{{date}}}</h2>
+                    <p>{{{markdownContent}}}</p>
                 </div>
             </div>
         </div>
   </div>
   <br>
-  <div class="card">
-        <div class="row no-gutters">
-            <div class="col">
-                <div class="card-block px-2">
-                    <h2>Publicación sin imágen</h2>
-                    <p>Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna. Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit. Ut sed pellentesque magna.</p>
-                </div>
-            </div>
-        </div>
-  </div>
+  {{/each}}

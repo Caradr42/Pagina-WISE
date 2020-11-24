@@ -208,7 +208,7 @@ router.get('/publicaciones', (req, res, next) => {
 
     PublicacionesCtrl.getAll().then(doc => {
         const objs = cloneToObjArr(doc);
-        res.render('publicaciones', {publicacionesData: objs});
+        res.render('publicaciones', {publicacionesData: doc[0].toObject()});
     });
 });
 
