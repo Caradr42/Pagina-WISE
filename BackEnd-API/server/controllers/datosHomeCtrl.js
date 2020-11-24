@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const fs = require('fs');
 
 const DatosHome = require('../../database/models/datosHomeSchema')
 let DatosHomeCtrl = {};
@@ -27,7 +28,7 @@ DatosHomeCtrl.insert_slide_img = async (img) => {
     
     await DatosHome.findOneAndUpdate({}, newUpdate, (err) => {
          if (err) return console.error(err);
-         console.log("slide added saved to collection.");
+         console.log("slide added to collection.");
     })
 };
 
@@ -37,7 +38,15 @@ DatosHomeCtrl.delete_slide_img = async(img) => {
 
     await DatosHome.findOneAndUpdate({}, newUpdate, (err) => {
         if (err) return console.error(err);
-        console.log("slide deleted saved to collection.");
+        console.log("slide deleted from collection.");
+
+        fs.unlink("./public/" + img, (err) => {
+            if (err) {
+                console.log("failed to delete local image:"+err);
+            } else {
+                console.log('successfully deleted local image');                                
+            }
+        });
     });
 };
 ///------------------ 
@@ -76,13 +85,21 @@ DatosHomeCtrl.insert_patrocinador = async (data) => {
     });
 };
 
-DatosHomeCtrl.remove_patrocinador_by_index = async(index) => {
+DatosHomeCtrl.remove_patrocinador_by_index = async(index, img) => {
 
     let tempObj = {};
     tempObj[`patrocinadores.${index}`] = 1;
 
     await DatosHome.update({}, {$unset : tempObj});
-    await DatosHome.update({}, {$pull : {"patrocinadores" : null}});
+    await DatosHome.update({}, {$pull : {"patrocinadores" : null}}).then((err) => {
+        fs.unlink("./public/" + img, (err) => {
+            if (err) {
+                console.log("failed to delete local image:"+err);
+            } else {
+                console.log('successfully deleted local image');                                
+            }
+        });
+    });
 };
 ///------------------
 
@@ -98,13 +115,21 @@ DatosHomeCtrl.insert_to_salon= async (data) => {
     });
 };
 
-DatosHomeCtrl.remove_from_salon_by_index = async(index) => {
+DatosHomeCtrl.remove_from_salon_by_index = async(index, img) => {
 
     let tempObj = {};
     tempObj[`salon_de_la_fama.${index}`] = 1;
 
     await DatosHome.update({}, {$unset : tempObj});
-    await DatosHome.update({}, {$pull : {"salon_de_la_fama" : null}});
+    await DatosHome.update({}, {$pull : {"salon_de_la_fama" : null}}).then((err) => {
+        fs.unlink("./public/" + img, (err) => {
+            if (err) {
+                console.log("failed to delete local image:"+err);
+            } else {
+                console.log('successfully deleted local image');                                
+            }
+        });
+    });
 };
 
 
