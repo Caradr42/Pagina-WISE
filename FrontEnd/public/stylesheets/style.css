@@ -60,6 +60,11 @@ p.subtitulos{
     color: #863264;
 }
 
+.date {
+    font-size: 20px;
+    color: #863264;
+}
+
 nav {
     background-color:#362c36f6;
 }
@@ -97,5 +102,9 @@ nav .navbar-toggler {
         padding-left:25px;
         padding-right:25px;
     }
+}
+
+.card {
+    width: 100%;
 }
 

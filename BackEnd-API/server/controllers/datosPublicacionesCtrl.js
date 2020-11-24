@@ -17,6 +17,25 @@ PublicacionesCtrl.insert_publication = async(title, imgs, content) => {
     });
 }
 
+
+// PublicacionesCtrl.remove_publication_by_index = async(index, imgs) => {
+
+//     let tempObj = {};
+//     tempObj[`patrocinadores.${index}`] = 1;
+
+//     await DatosHome.update({}, {$unset : tempObj});
+//     await DatosHome.update({}, {$pull : {"patrocinadores" : null}}).then((err) => {
+//         fs.unlink("./public/" + img, (err) => {
+//             if (err) {
+//                 console.log("failed to delete local image:"+err);
+//             } else {
+//                 console.log('successfully deleted local image');                                
+//             }
+//         });
+//     });
+// };
+
+
 PublicacionesCtrl.delete_publication_by_id = async(id) => {
     await Publicacion.findOneAndDelete({ '_id': id }, async(err) => {
         if (err) console.log(err);

@@ -1,4 +1,4 @@
-const upload = require('../multer-setup');
+const {uploadSingle, uploadMultiple} = require('../multer-setup');
 const slash = require('slash');
 const path = require('path');
 
@@ -48,7 +48,7 @@ router.post('/admin/updateAdminStatus', isLoggedIn, (req, res) => {
     });
 });
 
-router.post('/admin/updateHome/upload-slide', isLoggedIn, upload('file','/uploads/slides'), 
+router.post('/admin/updateHome/upload-slide', isLoggedIn, uploadSingle('file','/uploads/slides'), 
     (req, res) => {
         let storedPath = req.file.path;
         let relativePath = slash(storedPath).replace('public/', '');
@@ -104,7 +104,7 @@ router.post('/admin/updateHome/remove-col', isLoggedIn, (req, res) => {
     res.send({do: "reload"});
 });
 
-router.post('/admin/updateHome/create-sponsor', isLoggedIn, upload('file','/uploads/sponsors'), (req, res) => {
+router.post('/admin/updateHome/create-sponsor', isLoggedIn, uploadSingle('file','/uploads/sponsors'), (req, res) => {
     //console.log(JSON.stringify(req.body));  
     let relativePath = 'default.png';
     if(req.file){
@@ -128,7 +128,7 @@ router.post('/admin/updateHome/remove-sponsor', isLoggedIn, (req, res) => {
 });
 
 
-router.post('/admin/updateHome/create-person', isLoggedIn, upload('file','/uploads/salon_de_la_fama'), (req, res) => {
+router.post('/admin/updateHome/create-person', isLoggedIn, uploadSingle('file','/uploads/salon_de_la_fama'), (req, res) => {
     //console.log(JSON.stringify(req.body));  
     let relativePath = 'default.png';
     if(req.file){
@@ -153,6 +153,35 @@ router.post('/admin/updateHome/remove-person', isLoggedIn, (req, res) => {
     res.send({do: "reload"});
 });
 
+router.post('/admin/updateHome/create-publication', isLoggedIn, uploadMultiple('file','/uploads/publicaciones'), (req, res) => {
+    //console.log(req.files);  
+
+    let relativePaths = ['default.png'];
+    if(req.files){
+        relativePaths = [];
+        for (file of req.files){
+            let storedPath = file.path;
+            relativePath = slash(storedPath).replace('public/', '');
+            relativePaths.push(relativePath);
+        }
+    }
+
+    const publication = {title: req.body.title, markdownContent: req.body.markdownContent, imgs: relativePaths};
+    console.log(publication);
+
+    PublicacionesCtrl.insert_publication(req.body.title, relativePaths, req.body.markdownContent);
+
+    res.redirect('/admin/super-secret-page#publicaciones');
+});
+ 
+router.post('/admin/updateHome/remove-publication', isLoggedIn, (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    
+    PublicacionesCtrl.delete_publication_by_id(req.body.id);
+ 
+    res.send({do: "reload"});
+});
+
  
 ///===== amdin routes
 
@@ -171,15 +200,20 @@ router.get('/admin/super-secret-page', isLoggedIn, (req, res) => {
     if (req.user) obj = req.user.toObject();
 
     UsersCtrl.findAll().then(usrs => {
-        const objs = cloneToObjArr(usrs);
+        const objUsrs = cloneToObjArr(usrs);
 
         DatosHomeCtrl.get().then(home => {
-            res.render('pagina-secreta', 
-            {
-                user: obj, 
-                users: objs, 
-                homeData: home[0].toObject(), 
-                layout: false
+            PublicacionesCtrl.getAll().then(doc => {
+                const objP = cloneToObjArr(doc);
+
+                res.render('pagina-secreta', 
+                {
+                    user: obj, 
+                    users: objUsrs, 
+                    homeData: home[0].toObject(), 
+                    publicacionesData: objP,
+                    layout: false
+                });
             });
         });
     });
@@ -208,7 +242,7 @@ router.get('/publicaciones', (req, res, next) => {
 
     PublicacionesCtrl.getAll().then(doc => {
         const objs = cloneToObjArr(doc);
-        res.render('publicaciones', {publicacionesData: doc[0].toObject()});
+        res.render('publicaciones', {publicacionesData: objs});
     });
 });
 

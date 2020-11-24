@@ -35,6 +35,10 @@ hbsC.handlebars.registerHelper('isActiveSlide', function (index) {
 hbsC.handlebars.registerHelper('markdownize', function (content) {
     return md.render(content);
 });
+hbsC.handlebars.registerHelper('date', function (date) {
+    let obj = new Date(date * 1);
+    return obj.toDateString() + ' ' + obj.getHours() + ':' + obj.getMinutes();
+});
 
 /// ===== Middlewares =====
 app.use(express.static(path.join(__dirname, 'public')));
