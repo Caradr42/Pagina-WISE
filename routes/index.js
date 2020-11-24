@@ -6,15 +6,15 @@ const express = require('express');
 const router = require('express-promise-router')();
 const passport = require('passport');
 
-const { mongoose } = require('../../BackEnd-API/database/database.connection');
-const isLoggedIn = require('../../BackEnd-API/server/userVerification');
+const { mongoose } = require('../BackEnd-API/database/database.connection');
+const isLoggedIn = require('../BackEnd-API/server/userVerification');
 
 //====== CONTROLLERS ======
-const DatosHomeCtrl = require("../../BackEnd-API/server/controllers/datosHomeCtrl");
-const PublicacionesCtrl = require("../../BackEnd-API/server/controllers/datosPublicacionesCtrl");
-const EventosCtrl = require("../../BackEnd-API/server/controllers/datosEventosController");
-const UsersCtrl = require("../../BackEnd-API/server/controllers/usersCtrl");
-const DatosMainCtrl = require("../../BackEnd-API/server/controllers/datosMainController");
+const DatosHomeCtrl = require("../BackEnd-API/server/controllers/datosHomeCtrl");
+const PublicacionesCtrl = require("../BackEnd-API/server/controllers/datosPublicacionesCtrl");
+const EventosCtrl = require("../BackEnd-API/server/controllers/datosEventosController");
+const UsersCtrl = require("../BackEnd-API/server/controllers/usersCtrl");
+const DatosMainCtrl = require("../BackEnd-API/server/controllers/datosMainController");
 //======
 
 //

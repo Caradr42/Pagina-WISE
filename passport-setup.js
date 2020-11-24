@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const UsersCtrl = require("../BackEnd-API/server/controllers/usersCtrl");
+const UsersCtrl = require("./BackEnd-API/server/controllers/usersCtrl");
 
 passport.serializeUser(function(user, done) {    
     done(null, user.OID);
