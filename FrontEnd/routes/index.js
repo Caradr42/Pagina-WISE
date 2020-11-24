@@ -1,87 +1,260 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
+const {uploadSingle, uploadMultiple} = require('../multer-setup');
+const slash = require('slash');
+const path = require('path');
 
-mongoose.connect('mongodb://localhost:27017/WISE_ITESM');
+const express = require('express'); 
+const router = require('express-promise-router')();
+const passport = require('passport');
 
-function cloneToObjArr(doc){
+const { mongoose } = require('../../BackEnd-API/database/database.connection');
+const isLoggedIn = require('../../BackEnd-API/server/userVerification');
+
+//====== CONTROLLERS ======
+const DatosHomeCtrl = require("../../BackEnd-API/server/controllers/datosHomeCtrl");
+const PublicacionesCtrl = require("../../BackEnd-API/server/controllers/datosPublicacionesCtrl");
+const EventosCtrl = require("../../BackEnd-API/server/controllers/datosEventosController");
+const UsersCtrl = require("../../BackEnd-API/server/controllers/usersCtrl");
+const DatosMainCtrl = require("../../BackEnd-API/server/controllers/datosMainController");
+//======
+
+//
+function cloneToObjArr(doc) {
     var copy = [];
-    doc.forEach(e => { 
-        if(Array.isArray(e)){
-            copy.push(e);
-        }else if (typeof e === "object"){
-            copy.push(e.toObject());
+
+    for(i = 0; i < doc.length; i++){
+        if (Array.isArray(doc[i])) {
+            copy.push(doc[i]);
+        } else if (typeof doc[i] === "object") {
+            copy.push(doc[i].toObject());
         }
-    });
+    }
     return copy;
 }
+/// default image
+router.get("/default.png", (req, res) => {
+    //console.log(path.join(__dirname, "../public/Matraz.png"));
+    res.sendFile(path.join(__dirname, "../public/Matraz.png"));
+});
 
-var Schema = mongoose.Schema;
 
-var datosHomeSchema = new Schema({
-    infoGeneral: {
-        title: String,
-        top_content: [String],
-        slide_imgs: [String],
-        columns: [{
-            title: String,
-            content: String
-        }]
-    },
-    patrocinadores: [{
-        nombre: String,
-        descripción: [String],
-        img: String
-    }],
-    salonDeLaFama:[{
-        nombre: String,
-        descripción: [String],
-        img: String
-    }],
-    contacto: [{
-        tipo: String,
-        url: String,
-        icono: String
-    }]
-},{collection: "datosHome"});
+///===== amdin updates
 
-var datosPublicacionesSchema = new Schema({
-    title: String,
-    markdownContent: [String],
-    imgs: [String]
-},{collection: "datosPublicaciones"});
+router.post('/admin/updateAdminStatus', isLoggedIn, (req, res) => {
+    
+    UsersCtrl.updateUser({ OID: req.body.OID }, { isAdmin: req.body.status }).then(err => {
+        console.log('admin to update with : ' + req.body.status + " : " + req.body.OID); 
+        res.send({do: "reload"});
+        //return res.send({msg: 'admin updated', OID: req.body.OID, status: req.body.status});
+    });
+});
 
-var datosHome = mongoose.model('datosHome', datosHomeSchema);
-var datosPublicaciones = mongoose.model('datosPublicaciones', datosPublicacionesSchema);
+router.post('/admin/updateHome/upload-slide', isLoggedIn, uploadSingle('file','/uploads/slides'), 
+    (req, res) => {
+        let storedPath = req.file.path;
+        let relativePath = slash(storedPath).replace('public/', '');
+        
+        console.log(relativePath);
 
-// router.get('/cv', (req, res, next) => {
-//     cvData.find() 
-//         .then(function (doc) {
-//             var copy = cloneToObjArr(doc);
-//             res.render('cv', {cvFields: copy});
-//         });
-// });
+        DatosHomeCtrl.insert_slide_img(relativePath).then((err) => {
+            //res.send('uploaded owo');
+            res.redirect('/admin/super-secret-page#home');
+        });
+    });
 
-//routes
-router.get('/', (req, res, next) => {
-    res.render('home');
-       
+router.post('/admin/updateHome/remove-slide', isLoggedIn, (req, res) => {
+    console.log(`Removing slide: ${req.body.path}`);  
+
+    DatosHomeCtrl.delete_slide_img(req.body.path);
+
+    res.send({do: "reload"});
+});
+
+router.post('/admin/updateHome/columns', isLoggedIn, (req, res) => {
+    //console.log('received columns : ' + JSON.stringify(req.body));
+
+    cols = [];
+    size = Math.max(req.body.title.length, req.body.content.length);    
+    for (i = 0; i < size; ++i){
+        cols.push(
+            {
+                title: req.body.title[i],
+                content: req.body.content[i]
+            }
+        );
+    }
+    
+    DatosHomeCtrl.update({title: req.body.mainTitle, columns: cols});
+
+    //return res.send(JSON.stringify(req.body));
+    //res.send({do: "reload"});
+    res.redirect('/admin/super-secret-page#columnas');
+});
+
+router.post('/admin/updateHome/create-col', isLoggedIn, (req, res) => {
+   // console.log(JSON.stringify(req.body));  
+    DatosHomeCtrl.insert_column(req.body);
+    res.send({do: "reload"});
+});
+
+router.post('/admin/updateHome/remove-col', isLoggedIn, (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    DatosHomeCtrl.remove_column_by_index(req.body.index);
+
+    //DatosHomeCtrl.remove_column(req.body);
+    res.send({do: "reload"});
+});
+
+router.post('/admin/updateHome/create-sponsor', isLoggedIn, uploadSingle('file','/uploads/sponsors'), (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    let relativePath = 'default.png';
+    if(req.file){
+        let storedPath = req.file.path;
+        relativePath = slash(storedPath).replace('public/', '');
+    }
+
+    console.log(relativePath);
+
+    const patrocinador = {nombre: req.body.nombre, img: relativePath};
+    DatosHomeCtrl.insert_patrocinador(patrocinador);
+
+    res.redirect('/admin/super-secret-page#patrocinadores');
+});
+ 
+router.post('/admin/updateHome/remove-sponsor', isLoggedIn, (req, res) => {
+    console.log(JSON.stringify(req.body));  
+    DatosHomeCtrl.remove_patrocinador_by_index(req.body.index, req.body.img);
+ 
+    res.send({do: "reload"});
+});
+
+
+router.post('/admin/updateHome/create-person', isLoggedIn, uploadSingle('file','/uploads/salon_de_la_fama'), (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    let relativePath = 'default.png';
+    if(req.file){
+        let storedPath = req.file.path;
+        relativePath = slash(storedPath).replace('public/', '');
+    }
+
+    console.log(relativePath);
+
+    const persona = {nombre: req.body.nombre, descripcion: req.body.descripcion, img: relativePath};
+    console.log(persona);
+    DatosHomeCtrl.insert_to_salon(persona);
+
+    res.redirect('/admin/super-secret-page#salon_de_la_fama');
+});
+ 
+router.post('/admin/updateHome/remove-person', isLoggedIn, (req, res) => {
+    console.log(JSON.stringify(req.body));  
+    
+    DatosHomeCtrl.remove_from_salon_by_index(req.body.index, req.body.img);
+ 
+    res.send({do: "reload"});
+});
+
+router.post('/admin/updateHome/create-publication', isLoggedIn, uploadMultiple('file','/uploads/publicaciones'), (req, res) => {
+    //console.log(req.files);  
+
+    let relativePaths = [];
+    if(req.files){
+        for (file of req.files){
+            let storedPath = file.path;
+            relativePath = slash(storedPath).replace('public/', '');
+            relativePaths.push(relativePath);
+        }
+        if (relativePaths.length === 0){relativePaths = ['default.png']}
+    }
+
+    const publication = {title: req.body.title, markdownContent: req.body.markdownContent, imgs: relativePaths};
+    console.log(publication);
+
+    PublicacionesCtrl.insert_publication(req.body.title, relativePaths, req.body.markdownContent, req.body.link, req.body.linkText);
+
+    res.redirect('/admin/super-secret-page#publicaciones');
+});
+ 
+router.post('/admin/updateHome/remove-publication', isLoggedIn, (req, res) => {
+    //console.log(JSON.stringify(req.body));  
+    
+    PublicacionesCtrl.delete_publication_by_id(req.body.id);
+ 
+    res.send({do: "reload"});
+});
+
+ 
+///===== amdin routes
+
+router.get('/failed', (req, res) => {
+    res.send("No eres un administrador; tu solicitud sera revisada");
+});
+
+router.get('/logout', (req, res) => {
+    req.session = null;
+    req.logout();
+    res.redirect('/admin');
+});
+
+router.get('/admin/super-secret-page', isLoggedIn, (req, res) => {   
+    let obj = null;
+    if (req.user) obj = req.user.toObject();
+
+    UsersCtrl.findAll().then(usrs => {
+        const objUsrs = cloneToObjArr(usrs);
+
+        DatosHomeCtrl.get().then(home => {
+            PublicacionesCtrl.getAll().then(doc => {
+                const objP = cloneToObjArr(doc);
+
+                res.render('pagina-secreta', 
+                {
+                    user: obj, 
+                    users: objUsrs, 
+                    homeData: home[0].toObject(), 
+                    publicacionesData: objP,
+                    layout: false
+                });
+            });
+        });
+    });
 });
 
 router.get('/admin', (req, res, next) => {
-    res.render('admin');
+    let obj = null;
+    if (req.user) obj = req.user.toObject();
+    if (req.user) res.redirect('/admin/super-secret-page');
+    
+    res.render('admin', {user: obj});
+});
+
+
+
+
+//routes =============================================
+router.get('/', (req, res, next) => {
+
+    DatosHomeCtrl.get().then(doc => {
+        res.render('home', {homeData: doc[0].toObject()});
+    });
+});
+
+router.get('/publicaciones', (req, res, next) => {
+
+    PublicacionesCtrl.getAll().then(doc => {
+        const objs = cloneToObjArr(doc);
+        res.render('publicaciones', {publicacionesData: objs});
+    });
 });
 
 router.get('/eventos', (req, res, next) => {
-    res.render('eventos');
+    EventosCtrl.getAll().then(doc => {
+        const objs = cloneToObjArr(doc);
+        res.render('eventos', {eventosData: objs});
+    });
 });
 
 router.get('/oportunidades', (req, res, next) => {
     res.render('oportunidades');
-});
-
-router.get('/publicaciones', (req, res, next) => {
-    res.render('publicaciones');
 });
 
 router.get('/recomendaciones', (req, res, next) => {

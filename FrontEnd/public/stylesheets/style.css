@@ -1,55 +1,115 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body { 
-    padding-top: 98px; 
-    /*background-color: #ffcfd4;*/
+    padding-top: 86px; 
     background-color: #f9d6db;
+    margin-bottom: 180px;
+    font-family: 'Montserrat'
+}
+
+footer {
+    position: absolute;
+    padding-top: 20px;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 180px;
+}
+
+p{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
+
+li{
+    font-family: 'Montserrat'; 
+    font-size: 20px;
+}
+
+h1{
+    font-family: 'Montserrat';
+    font-size: 40px;
+    font-weight: bold;
+    color: #863264;
 }
 
 h2{
-    font-family: monospace;
+    font-family: 'Montserrat';
     font-size: 30px;
     font-weight: bold;
     color: #DD406D;
 }
 
-
-nav {
-    background-color:#362c365e;
-    
+.content{
+    font-family: 'Montserrat'; 
+    font-size: 16px;
 }
 
-nav a{
+p.subtitulos{
+    font-family: 'Montserrat'; 
+    font-style: italic;
+    color:  #863264;
+    font-size: 25px;
+}
+
+.icon{
+    font-size:60px;
+    color: #863264;
+}
+
+.date {
+    font-size: 20px;
+    color: #863264;
+}
+
+nav {
+    background-color:#362c36f6;
+}
+
+/* nav a{
     color: #ffe8ec; 
     text-align: left; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-nav a:hover{
+*/
+/* .navbar-nav > a:hover{
     color: #BD4C90;
-}
+}  */
 
 nav .img-responsive {
     height: auto;
     width: auto;
-    max-height: 72px;
+    max-height: 60px;
     max-width: 250px;
 }
 
-#carouselSlides {
-    position: relative;
-
+nav .navbar-toggler {
+    background-color: #EA86A2;
 }
 
-.carousel img{
-    /*width: auto;*/
-    height: 700px;
+@media (min-width: 1100px){
+    .navbar-nav > li{
+        padding-left:10px;
+        padding-right:10px;
+    }
+}
+
+@media (min-width: 1300px){
+    .navbar-nav > li{
+        padding-left:25px;
+        padding-right:25px;
+    }
+}
+
+.card {
     width: 100%;
-    object-fit: cover;
 }
 
-#mainLogo {
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top: 22%;
+.post-img{
+    margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+

@@ -1,3 +1,16 @@
-<div id="app" class="container"> 
-    <h1 class="display-2" style="color:#111">Eventos</h1> 
-</div>
+{{#each eventosData.publicaciones}}
+<div class="card" style="margin: 1%; padding: 2px;">
+        <div class="row no-gutters">
+            <div class="col-auto">
+                <img alt="HerStory" src={{{imgs}}}  style="width: 300px; height: auto;" onerror="this.style.display='none'" />
+            </div>
+            <div class="col" >
+                <div class="card-block px-2">
+                    <h2>{{{title}}} {{{event_date}}}</h2>
+                    <p style="white-space: pre-line;">{{{markdownContent}}}</div>
+            </div>
+        </div>
+        <div class="card-footer">¿Te gustaría asistir? <a href={{{link}}}>Visita la página del evento.</a></div>
+  </div>
+  <br>  
+  {{/each}}

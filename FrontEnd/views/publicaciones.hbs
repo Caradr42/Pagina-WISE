@@ -1,3 +1,35 @@
-<div id="app" class="container"> 
-    <h1 class="display-2" style="color:#111">Publicaciones</h1> 
+<div class="container">
+    {{!-- <div class="row"> --}}
+        {{#each publicacionesData}}
+        {{!-- <div class="col-12"> --}}
+            <div class="card" style="margin: 1%; padding: 2px;">
+                <h2 class="card-header">
+                    {{this.title}}
+                    <div class="float-right date">{{date this.date}}</div>
+                </h2>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-4"> 
+                                <div class="row no-gutters">        
+                                    {{#each this.imgs}}
+                                        <div class="col post-img">
+                                            <img alt="/{{this}}" id="myImage"src="/{{this}}"  class="img-fluid rounded" style="min-width: 150px;" />
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div> 
+                            <div class="col-8 ">
+                                <p>{{{markdownize this.markdownContent}}}</p>
+                                {{#if this.link}}
+                                    <a href="{{this.link}}"><button type="button" class="btn btn-info">{{this.linkText}}</button></a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{!-- </div> --}}
+        {{/each}}
+    {{!-- </div> --}}
 </div>
