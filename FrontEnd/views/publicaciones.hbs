@@ -13,14 +13,17 @@
                             <div class="col-4"> 
                                 <div class="row no-gutters">        
                                     {{#each this.imgs}}
-                                        <div class="col">
-                                            <img alt="/{{this}}" id="myImage"src="/{{this}}"  class="img-fluid" style="min-width: 150px;" />
+                                        <div class="col post-img">
+                                            <img alt="/{{this}}" id="myImage"src="/{{this}}"  class="img-fluid rounded" style="min-width: 150px;" />
                                         </div>
                                     {{/each}}
                                 </div>
                             </div> 
                             <div class="col-8 ">
                                 <p>{{{markdownize this.markdownContent}}}</p>
+                                {{#if this.link}}
+                                    <a href="{{this.link}}"><button type="button" class="btn btn-info">{{this.linkText}}</button></a>
+                                {{/if}}
                             </div>
                         </div>
                     </div>

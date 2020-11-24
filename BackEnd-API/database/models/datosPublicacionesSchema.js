@@ -7,6 +7,8 @@ const datosPublicacionesSchema = new mongoose.Schema({
     },
     imgs: [String],
     markdownContent: String,
+    link: String,
+    linkText: String,
     date: {
         type: String,
         required: true

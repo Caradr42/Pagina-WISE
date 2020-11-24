@@ -2,14 +2,21 @@ const Publicacion = require('../../database/models/datosPublicacionesSchema');
 
 let PublicacionesCtrl = {}
 
-PublicacionesCtrl.insert_publication = async(title, imgs, content) => {
+PublicacionesCtrl.insert_publication = async(title, imgs, content, link, linkText) => {
 
-    let new_publication = await new Publicacion({
+    let publicacion = {
         'title': title,
         'imgs': imgs,
         'markdownContent': content,
         'date': Date.now()
-    });
+    };
+
+    if (link || link !== ""){
+        publicacion['link'] = link;
+        publicacion['linkText'] = linkText;
+    }
+
+    let new_publication = await new Publicacion(publicacion);
 
     new_publication.save(function(err, publication) {
         if (err) return console.error(err);

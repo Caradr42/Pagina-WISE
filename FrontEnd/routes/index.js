@@ -156,20 +156,20 @@ router.post('/admin/updateHome/remove-person', isLoggedIn, (req, res) => {
 router.post('/admin/updateHome/create-publication', isLoggedIn, uploadMultiple('file','/uploads/publicaciones'), (req, res) => {
     //console.log(req.files);  
 
-    let relativePaths = ['default.png'];
+    let relativePaths = [];
     if(req.files){
-        relativePaths = [];
         for (file of req.files){
             let storedPath = file.path;
             relativePath = slash(storedPath).replace('public/', '');
             relativePaths.push(relativePath);
         }
+        if (relativePaths.length === 0){relativePaths = ['default.png']}
     }
 
     const publication = {title: req.body.title, markdownContent: req.body.markdownContent, imgs: relativePaths};
     console.log(publication);
 
-    PublicacionesCtrl.insert_publication(req.body.title, relativePaths, req.body.markdownContent);
+    PublicacionesCtrl.insert_publication(req.body.title, relativePaths, req.body.markdownContent, req.body.link, req.body.linkText);
 
     res.redirect('/admin/super-secret-page#publicaciones');
 });
